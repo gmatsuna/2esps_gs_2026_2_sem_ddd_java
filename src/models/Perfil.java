@@ -47,7 +47,7 @@ public class Perfil {
      * @param cidade Cidade onde a pessoa mora
      * @param visibilidade Nível de visibilidade do perfil
      */
-    public Perfil(int usuario_id, String nome_apelido, String cidade, VisibilidadePerfil visibilidade) {
+    public Perfil(int idUsuario, String nomeApelido, String cidade, VisibilidadePerfil visibilidade) {
         this.idPerfil = contadorId++;
         this.idUsuario = idUsuario;
         this.nomeApelido = nomeApelido;
@@ -68,14 +68,14 @@ public class Perfil {
      * @param visibilidade Nível de visibilidade do perfil
      * @param fotoPerfil Endereço ou link da foto de perfil
      */
-    public Perfil(int usuario_id, String nome_apelido, String bio, String cidade, VisibilidadePerfil visibilidade, String foto_perfil) {
+    public Perfil(int idUsuario, String nomeApelido, String bio, String cidade, VisibilidadePerfil visibilidade, String fotoPerfil) {
         this.idPerfil = contadorId++;
-        this.idUsuario = usuario_id;
-        this.nomeApelido = nome_apelido;
+        this.idUsuario = idUsuario;
+        this.nomeApelido = nomeApelido;
         this.bio = bio;
         this.cidade = cidade;
         this.visibilidade = visibilidade;
-        this.fotoPerfil = foto_perfil;
+        this.fotoPerfil = fotoPerfil;
     }
 
     // Getters

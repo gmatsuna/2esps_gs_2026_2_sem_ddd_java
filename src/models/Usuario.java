@@ -18,6 +18,9 @@ public class Usuario {
     /** Propriedade do tipo INT - Identificador único do usuário. */
     private int idUsuario;
 
+    /** Propriedade do tipo String - E-mail de acesso do usuário. */
+    private String email;
+
     /** Propriedade do tipo LocalDate - Data de nascimento do usuário. */
     private LocalDate dataNascimento;
 
@@ -33,11 +36,13 @@ public class Usuario {
      * Construtor da classe Usuario.
      * O ID e a data de cadastro são gerados automaticamente pelo sistema.
      *
+     * @param email E-mail obrigatório de cadastro do usuário
      * @param dataNascimento Data de nascimento do usuário
      * @param statusConta Situação atual da conta (ATIVA, SUSPENSA, EXCLUIDA)
      */
-    public Usuario(LocalDate dataNascimento, StatusConta statusConta) {
+    public Usuario(String email, LocalDate dataNascimento, StatusConta statusConta) {
         this.idUsuario = contadorId++;
+        this.email = email;
         this.dataNascimento = dataNascimento;
         this.dataCadastro = LocalDate.now();
         this.statusConta = statusConta;
@@ -46,6 +51,10 @@ public class Usuario {
     // Getters
     public int getIdUsuario() {
         return idUsuario;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public LocalDate getDataNascimento() {
@@ -61,6 +70,10 @@ public class Usuario {
     }
 
     // Setters
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
@@ -73,10 +86,10 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "idUsuario=" + idUsuario +
+                ", email='" + email + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", dataCadastro=" + dataCadastro +
                 ", statusConta=" + statusConta +
                 '}';
     }
-
 }

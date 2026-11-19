@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Serviço responsável pelas regras de negócio e gerenciamento de usuários na plataforma Afina.
+ * Serviço responsável pelas regras de negócio e gerenciamento de usuários.
  *
  * @author Gilberto Hideaki Matsunaga
  * @version 1.0
@@ -24,12 +24,28 @@ public class UsuarioService {
     /**
      * Cadastra um novo usuário validando a idade mínima de 18 anos.
      *
+     * @param email E-mail obrigatório do usuário
      * @param dataNascimento Data de nascimento do usuário
      * @param statusConta Status inicial da conta
      * @return O objeto Usuario cadastrado
      * @throws RegraNegocioException Caso o usuário seja menor de 18 anos ou a data seja nula
      */
-    public Usuario cadastrarUsuario(LocalDate dataNascimento, StatusConta statusConta) throws RegraNegocioException {
+    public Usuario cadastrarUsuario(String email, LocalDate dataNascimento, StatusConta statusConta) throws RegraNegocioException {
+        if (email == null || email.trim().isEmpty()) {
+            throw new RegraNegocioException("O e-mail do usuário é obrigatório.");
+        }
+
+        String emailLimpo = email.trim().toLowerCase();
+        if (!emailLimpo.contains("@") || !emailLimpo.contains(".")) {
+            throw new RegraNegocioException("Informe um formato de e-mail válido.");
+        }
+
+        for (Usuario u : usuarios) {
+            if (u.getEmail().equalsIgnoreCase(emailLimpo)) {
+                throw new RegraNegocioException("Já existe um usuário cadastrado com o e-mail: " + emailLimpo);
+            }
+        }
+
         if (dataNascimento == null) {
             throw new RegraNegocioException("A data de nascimento é obrigatória.");
         }
@@ -39,7 +55,7 @@ public class UsuarioService {
             throw new RegraNegocioException("Cadastro não permitido: o usuário deve ter pelo menos 18 anos.");
         }
 
-        Usuario novoUsuario = new Usuario(dataNascimento, statusConta);
+        Usuario novoUsuario = new Usuario(emailLimpo, dataNascimento, statusConta);
         usuarios.add(novoUsuario);
         return novoUsuario;
     }

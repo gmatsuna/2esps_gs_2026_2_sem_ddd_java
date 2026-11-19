@@ -60,8 +60,8 @@ public class Main {
         System.out.println("===========================================================");
 
         // Instanciando usuários sem passar ID nem data de cadastro
-        Usuario usuario1 = new Usuario(LocalDate.parse("2000-05-15"), StatusConta.ATIVA);
-        Usuario usuario2 = new Usuario(LocalDate.parse("1995-10-20"), StatusConta.SUSPENSA);
+        Usuario usuario1 = new Usuario("usuario1@afina.com", LocalDate.parse("2000-05-15"), StatusConta.ATIVA);
+        Usuario usuario2 = new Usuario("usuario2@afina.com",LocalDate.parse("1995-10-20"), StatusConta.SUSPENSA);
 
         System.out.println("\n--- Usuário 1 ---");
         System.out.println(String.format("ID do Usuário: %s", usuario1.getIdUsuario()));
@@ -271,7 +271,7 @@ public class Main {
 
         // 1. Testando cadastro válido (maior de 18 anos)
         try {
-            Usuario uValidado = usuarioService.cadastrarUsuario(LocalDate.of(1998, 8, 12), StatusConta.ATIVA);
+            Usuario uValidado = usuarioService.cadastrarUsuario("usuario3@afina.com", LocalDate.of(1998, 8, 12), StatusConta.ATIVA);
             System.out.println(String.format("Usuário cadastrado com sucesso! ID: %d | Status: %s",
                     uValidado.getIdUsuario(), uValidado.getStatusConta()));
 
@@ -285,7 +285,7 @@ public class Main {
 
         // 2. Testando bloqueio de menor de idade
         try {
-            usuarioService.cadastrarUsuario(LocalDate.of(2012, 3, 25), StatusConta.ATIVA);
+            usuarioService.cadastrarUsuario("email", LocalDate.of(2012, 3, 25), StatusConta.ATIVA);
         } catch (RegraNegocioException e) {
             System.out.println(String.format("Bloqueio validado com sucesso: %s", e.getMessage()));
         }
@@ -298,7 +298,7 @@ public class Main {
 
         try {
             // Cadastrando um usuário válido no service para vincular ao perfil
-            Usuario uPerfil = usuarioService.cadastrarUsuario(LocalDate.of(1995, 4, 10), StatusConta.ATIVA);
+            Usuario uPerfil = usuarioService.cadastrarUsuario("giovanna@afina.com", LocalDate.of(1995, 4, 10), StatusConta.ATIVA);
 
             // 1. Criando perfil com visibilidade SO_CONEXOES
             Perfil pCriado = perfilService.criarPerfil(
@@ -329,7 +329,7 @@ public class Main {
 
         try {
             // Criando um segundo usuário e perfil válido no service para testar a conexão
-            Usuario uDiogo = usuarioService.cadastrarUsuario(LocalDate.of(1999, 7, 22), StatusConta.ATIVA);
+            Usuario uDiogo = usuarioService.cadastrarUsuario("diogo@afina.com",LocalDate.of(1999, 7, 22), StatusConta.ATIVA);
             Perfil pDiogo = perfilService.criarPerfil(
                     uDiogo.getIdUsuario(),
                     "Diogo Henrique",
